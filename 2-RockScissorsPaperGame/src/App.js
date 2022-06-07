@@ -24,7 +24,7 @@ function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
   const [result, setResult] = useState("");
-  const [computerResult, setComputerResult]=useState("")
+  const [computerResult, setComputerResult] = useState("")
 
   const play = (userChoice) => {
     setUserSelect(choice[userChoice]);
@@ -46,8 +46,13 @@ function App() {
     else if (user.name === "Paper") return computer.name === "Rock" ? "win" : "lose"
   }
 
-  const comJudgement = (result) => {
-    return result === "win" ? "lose" : result === "tie" ? "tie": "win";
+  const comJudgement = (user, computer) => {
+    if (computer.name === user.name) {
+      return "tie"
+    }
+    else if (user.name === "Rock") return computer.name === "Scissors" ? "lose" : "win"
+    else if (user.name === "Scissors") return computer.name === "Paper" ? "lose" : "win"
+    else if (user.name === "Paper") return computer.name === "Rock" ? "lose" : "win"
   }
 
   const randomChoice = () => {
