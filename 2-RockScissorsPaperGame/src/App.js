@@ -23,17 +23,34 @@ const choice = {
 function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
-  const [result, setResult] = useState("");
+  const [userResult, setUserResult] = useState("");
   const [computerResult, setComputerResult] = useState("")
+  const [counter, setCounter] = useState(10);
+  const [winCounter, setWincounter] = useState(0);
+
+  const increase = () => {
+    setCounter(counter - 1)
+  }
+
+  const winCount = () => {
+    setWincounter(winCounter + 1)
+  }
 
   const play = (userChoice) => {
-    setUserSelect(choice[userChoice]);
+    if (counter > 0) {
+      setUserSelect(choice[userChoice]);
 
-    let computerChoice = randomChoice();
-    setComputerSelect(computerChoice);
+      let computerChoice = randomChoice();
+      setComputerSelect(computerChoice);
 
-    setResult(judgement(choice[userChoice], computerChoice));
-    setComputerResult(comJudgement(choice[userChoice], computerChoice));
+      let Result = judgement(choice[userChoice], computerChoice);
+      setUserResult(Result);
+      setComputerResult(comJudgement(Result));
+      increase();
+      if(Result === "win") {
+        winCount()
+      }
+    }
   }
 
   const judgement = (user, computer) => {
@@ -46,13 +63,8 @@ function App() {
     else if (user.name === "Paper") return computer.name === "Rock" ? "win" : "lose"
   }
 
-  const comJudgement = (user, computer) => {
-    if (computer.name === user.name) {
-      return "tie"
-    }
-    else if (user.name === "Rock") return computer.name === "Scissors" ? "lose" : "win"
-    else if (user.name === "Scissors") return computer.name === "Paper" ? "lose" : "win"
-    else if (user.name === "Paper") return computer.name === "Rock" ? "lose" : "win"
+  const comJudgement = (result) => {
+    return result === "win" ? "lose" : result === "tie" ? "tie" : "win";
   }
 
   const randomChoice = () => {
@@ -70,14 +82,16 @@ function App() {
   return (
     <>
       <div className='main'>
-        <Box title="You" item={userSelect} result={result} />
-        <Box title="Coumputer" item={computerSelect} result={computerResult} />
+        <Box title="You" item={userSelect} result={userResult} className={userResult}/>
+        <Box title="Coumputer" item={computerSelect} result={computerResult} className={computerResult}/>
       </div>
       <div className='main'>
         <Button variant="outline-success" onClick={() => play("scissors")}> 가위 </Button>
         <Button variant="outline-success" onClick={() => play("rock")}> 바위 </Button>
         <Button variant="outline-success" onClick={() => play("paper")}> 보 </Button>
       </div>
+      <div className='main'> 게임 횟수(10번까지 가능){counter}</div>
+      <div className='main'> 이긴 횟수 {winCounter}</div>
     </>
   );
 }

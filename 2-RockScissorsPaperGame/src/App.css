@@ -14,3 +14,11 @@
 .item-img {
   width: 350px;
 }
+
+.box.win{
+  border: 3px solid green;
+}
+
+.box.lose{
+  border: 3px solid red;
+}
