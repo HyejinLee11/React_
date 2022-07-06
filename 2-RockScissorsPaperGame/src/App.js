@@ -1,9 +1,17 @@
 import { useState } from 'react';
-import './App.css';
+import styled from "styled-components";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Box from './component/Box';
 import { Paper, Rock, Scissors } from './img';
 import Button from 'react-bootstrap/Button';
+
+const Main = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+`
 
 const choice = {
   rock: {
@@ -81,17 +89,17 @@ function App() {
 
   return (
     <>
-      <div className='main'>
-        <Box title="You" item={userSelect} result={userResult} className={userResult}/>
-        <Box title="Coumputer" item={computerSelect} result={computerResult} className={computerResult}/>
-      </div>
-      <div className='main'>
-        <Button variant="outline-success" onClick={() => play("scissors")}> 가위 </Button>
-        <Button variant="outline-success" onClick={() => play("rock")}> 바위 </Button>
-        <Button variant="outline-success" onClick={() => play("paper")}> 보 </Button>
-      </div>
-      <div className='main'> 게임 횟수(10번까지 가능){counter}</div>
-      <div className='main'> 이긴 횟수 {winCounter}</div>
+      <Main>
+        <Box title="You" item={userSelect} result={userResult}/>
+        <Box title="Coumputer" item={computerSelect} result={computerResult}/>
+      </Main>
+      <Main>
+        <Button variant="outline-dark" onClick={() => play("scissors")}> 가위 </Button>
+        <Button variant="outline-dark" onClick={() => play("rock")}> 바위 </Button>
+        <Button variant="outline-dark" onClick={() => play("paper")}> 보 </Button>
+      </Main>
+      <Main> 게임 횟수(10번까지 가능){counter}</Main>
+      <Main> 이긴 횟수 {winCounter}</Main>
     </>
   );
 }
